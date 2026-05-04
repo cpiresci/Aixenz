@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>AIXENZ — Banco Digital Global por Inteligência Artificial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   AIXENZ DESIGN SYSTEM — Luxury Modern Banking
+   Paleta: Deep Navy · Obsidian · Burnished Gold · Electric Teal
+───────────────────────────────────────────────────────────── */
+:root {
+  --ink:       #04040a;
+  --navy:      #060814;
+  --card:      #0a0c18;
+  --card2:     #0e1022;
+  --surface:   #12162a;
+  --g:         #c8a84b;
+  --g2:        #e8cc88;
+  --gd:        #8a6a1c;
+  --gdd:       #2e2008;
+  --teal:      #00e5c8;
+  --teal-dim:  rgba(0,229,200,.12);
+  --bd:        rgba(200,168,75,.13);
+  --bd2:       rgba(200,168,75,.26);
+  --tx:        #e8e2d4;
+  --muted:     #6a6458;
+  --dim:       #3a3428;
+  --red:       #d44040;
+  --gr:        #2ea87a;
+  --r:         10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--tx);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grid texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(200,168,75,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,168,75,.018) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Ambient glow */
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 500px; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(200,168,75,.06) 0%, transparent 70%);
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--gd); }
+
+/* ── TYPOGRAPHY ─────────────────────────────────────────────── */
+.serif   { font-family: 'Cormorant Garamond', serif; }
+.mono    { font-family: 'DM Mono', monospace; }
+.sans    { font-family: 'Syne', sans-serif; }
+
+/* ── LAYOUT ─────────────────────────────────────────────────── */
+.shell { max-width: 1140px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+.shell-sm { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+/* ── NAV ────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(4,4,10,.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--bd);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; padding: 0 28px; max-width: 1140px; margin: 0 auto;
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; font-weight: 600; letter-spacing: 6px;
+  background: linear-gradient(135deg, #8a6a1c, #e8cc88 40%, #c8a84b 60%, #8a6a1c);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+  cursor: pointer; text-decoration: none;
+}
+@keyframes shimmer { 0% { background-position: 200% center } 100% { background-position: -200% center } }
+
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: 2px;
+  color: var(--muted); text-decoration: none; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--g); }
+.nav-cta {
+  display: flex; gap: 10px;
+}
+.btn-outline {
+  padding: 8px 18px; border: 1px solid var(--bd); border-radius: 3px;
+  background: transparent; color: var(--muted);
+  font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: 1.5px;
+  text-transform: uppercase; cursor: pointer; transition: all .2s;
+}
+.btn-outline:hover { border-color: var(--g); color: var(--g); }
+.btn-gold {
+  padding: 8px 20px; border: none; border-radius: 3px;
+  background: linear-gradient(135deg, #8a6a1c, #c8a84b, #e8cc88, #c8a84b, #8a6a1c);
+  background-size: 200% auto; animation: shimmer 4s linear infinite;
+  color: #0a0800; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: .65rem; letter-spacing: 1px; cursor: pointer; transition: box-shadow .2s;
+}
+.btn-gold:hover { box-shadow: 0 4px 24px rgba(200,168,75,.45); }
+
+/* ── HERO ────────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding-top: 64px; position: relative; overflow: hidden;
+}
+
+/* Orb backgrounds */
+.orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(80px); opacity: .5;
+}
+.orb-1 { width: 600px; height: 600px; top: -100px; left: -150px; background: radial-gradient(circle, rgba(200,168,75,.08), transparent 70%); }
+.orb-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(0,229,200,.06), transparent 70%); }
+
+/* Diagonal accent line */
+#hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 1px; height: 70%; background: linear-gradient(180deg, transparent, var(--g), transparent);
+  transform: translateX(-320px);
+}
+
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center;
+  width: 100%; position: relative; z-index: 1; padding: 60px 0;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,168,75,.07); border: 1px solid var(--bd);
+  border-radius: 2px; padding: 6px 14px; margin-bottom: 28px;
+  font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: 2px;
+  color: var(--g); text-transform: uppercase;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.8); } }
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 300; line-height: 1.05; letter-spacing: -1px;
+  color: var(--tx); margin-bottom: 10px;
+}
+.hero-title em { font-style: italic; color: var(--g); }
+.hero-title strong {
+  font-weight: 700; display: block;
+  background: linear-gradient(135deg, var(--g), var(--g2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-family: 'DM Mono', monospace; font-size: .78rem; line-height: 1.8;
+  color: var(--muted); margin: 24px 0 36px; max-width: 480px; letter-spacing: .3px;
+}
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 14px 32px; border: none; border-radius: 3px;
+  background: linear-gradient(135deg, #8a6a1c, #c8a84b, #e8cc88, #c8a84b, #8a6a1c);
+  background-size: 200% auto; animation: shimmer 4s linear infinite;
+  color: #06040a; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: .8rem; letter-spacing: .5px; cursor: pointer;
+  box-shadow: 0 4px 30px rgba(200,168,75,.3); transition: box-shadow .2s;
+}
+.btn-primary:hover { box-shadow: 0 8px 40px rgba(200,168,75,.55); }
+.btn-secondary {
+  padding: 14px 32px; border: 1px solid var(--bd2); border-radius: 3px;
+  background: transparent; color: var(--tx);
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: .8rem;
+  cursor: pointer; transition: all .2s; letter-spacing: .5px;
+}
+.btn-secondary:hover { border-color: var(--g); color: var(--g); }
+
+.hero-stats {
+  display: flex; gap: 36px; margin-top: 48px; padding-top: 36px;
+  border-top: 1px solid var(--bd);
+}
+.stat-item {}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600;
+  color: var(--g2); line-height: 1;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace; font-size: .55rem; color: var(--muted);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px;
+}
+
+/* ── CARD MOCKUP (hero right) ────────────────────────────────── */
+.hero-card-wrap {
+  position: relative;
+}
+.hero-card-wrap::before {
+  content: '';
+  position: absolute; inset: -40px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(200,168,75,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.banking-card {
+  background: linear-gradient(145deg, #0e1530, #090c1e, #0a0f20);
+  border: 1px solid rgba(200,168,75,.22);
+  border-radius: 20px; padding: 30px; position: relative; overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,10,.8), 0 0 0 1px rgba(255,255,255,.04);
+}
+.banking-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,168,75,.5), rgba(0,229,200,.3), transparent);
+}
+.banking-card::after {
+  content: '';
+  position: absolute; bottom: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(0,229,200,.06) 0%, transparent 70%);
+}
+
+.card-chip {
+  width: 36px; height: 28px;
+  background: linear-gradient(135deg, #c8a84b, #e8cc88, #c8a84b);
+  border-radius: 5px; margin-bottom: 40px;
+  position: relative; overflow: hidden;
+}
+.card-chip::before {
+  content: '';
+  position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+  background: rgba(0,0,0,.3); transform: translateY(-50%);
+}
+
+.card-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600;
+  letter-spacing: 4px; color: rgba(200,168,75,.8); margin-bottom: 24px;
+}
+.card-number {
+  font-family: 'DM Mono', monospace; font-size: .78rem; letter-spacing: 3px;
+  color: rgba(232,226,212,.5); margin-bottom: 20px;
+}
+.card-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.card-name { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: 2px; color: rgba(232,226,212,.5); text-transform: uppercase; }
+.card-balance-label { font-family: 'DM Mono', monospace; font-size: .5rem; color: rgba(200,168,75,.5); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
+.card-balance-value { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--g2); }
+
+/* Mini transactions below card */
+.mini-txs { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.mini-tx {
+  background: rgba(255,255,255,.03); border: 1px solid var(--bd);
+  border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  animation: fade-in .6s ease both;
+}
+@keyframes fade-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.mini-tx:nth-child(1) { animation-delay: .2s; }
+.mini-tx:nth-child(2) { animation-delay: .4s; }
+.mini-tx:nth-child(3) { animation-delay: .6s; }
+.tx-left { display: flex; align-items: center; gap: 10px; }
+.tx-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; }
+.tx-icon.pix   { background: rgba(0,229,200,.1); }
+.tx-icon.globe { background: rgba(200,168,75,.1); }
+.tx-icon.ai    { background: rgba(100,100,200,.1); }
+.tx-name  { font-size: .72rem; font-weight: 600; color: var(--tx); }
+.tx-meta  { font-family: 'DM Mono', monospace; font-size: .52rem; color: var(--muted); }
+.tx-amt   { font-family: 'DM Mono', monospace; font-size: .72rem; font-weight: 500; }
+.tx-amt.pos { color: var(--gr); }
+.tx-amt.neg { color: var(--red); }
+
+/* Agent status bar */
+.agent-bar {
+  margin-top: 14px; background: rgba(0,0,0,.3); border: 1px solid var(--bd);
+  border-radius: 8px; padding: 10px 14px;
+}
+.agent-bar-label {
+  font-family: 'DM Mono', monospace; font-size: .52rem; color: var(--muted);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
+}
+.agent-dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.agent-dot {
+  width: 22px; height: 22px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .65rem; border: 1px solid rgba(200,168,75,.15);
+  background: rgba(200,168,75,.04); animation: agent-blink 2s ease-in-out infinite;
+}
+@keyframes agent-blink { 0%,100% { opacity:.5; } 50% { opacity:1; border-color:rgba(200,168,75,.4); } }
+.agent-dot:nth-child(odd)  { animation-delay: .3s; }
+.agent-dot:nth-child(3n)   { animation-delay: .7s; }
+.agent-dot.active { background: rgba(0,229,200,.08); border-color: rgba(0,229,200,.3); color: var(--teal); }
+
+/* ── TICKER ────────────────────────────────────────────────── */
+.ticker-wrap {
+  background: rgba(6,8,20,.95); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd);
+  overflow: hidden; padding: 8px 0; position: relative; z-index: 1;
+}
+.ticker-track {
+  display: flex; gap: 0; width: max-content;
+  animation: ticker 50s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes ticker { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+.ti {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 24px; border-right: 1px solid rgba(200,168,75,.12);
+  font-family: 'DM Mono', monospace; font-size: .64rem; white-space: nowrap;
+}
+.ti-sym { color: var(--g); font-weight: 500; letter-spacing: 1px; }
+.ti-px  { color: var(--tx); }
+.ti-up  { color: #2ea87a; } .ti-dn { color: #d44040; }
+
+/* ── SECTIONS ─────────────────────────────────────────────── */
+section { position: relative; z-index: 1; }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-label {
+  font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: 3px;
+  color: var(--g); text-transform: uppercase; margin-bottom: 14px; display: block;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 300; line-height: 1.15;
+  color: var(--tx);
+}
+.section-title em { font-style: italic; color: var(--g); }
+.section-desc {
+  font-family: 'DM Mono', monospace; font-size: .72rem; color: var(--muted);
+  line-height: 1.8; max-width: 500px; margin: 16px auto 0;
+}
+
+/* ── ABOUT (16 Agents) ────────────────────────────────────── */
+#about { padding: 100px 0; }
+.agents-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+  background: var(--bd); border: 1px solid var(--bd);
+}
+.agent-card {
+  background: var(--card); padding: 22px 18px;
+  transition: background .2s, transform .2s;
+  cursor: default; position: relative; overflow: hidden;
+}
+.agent-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--g), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.agent-card:hover { background: rgba(14,18,34,.98); }
+.agent-card:hover::before { opacity: 1; }
+.agent-card:hover .agent-num { color: var(--g); }
+.agent-num {
+  font-family: 'DM Mono', monospace; font-size: .55rem; letter-spacing: 1.5px;
+  color: var(--muted); margin-bottom: 10px; transition: color .2s;
+}
+.agent-icon { font-size: 1.3rem; margin-bottom: 8px; }
+.agent-name {
+  font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 600;
+  color: var(--tx); margin-bottom: 6px; line-height: 1.3;
+}
+.agent-desc { font-family: 'DM Mono', monospace; font-size: .6rem; color: var(--muted); line-height: 1.6; }
+
+/* ── HOW IT WORKS ─────────────────────────────────────────── */
+#flow { padding: 100px 0; background: linear-gradient(180deg, transparent, rgba(10,12,24,.6), transparent); }
+.flow-steps { display: flex; flex-direction: column; gap: 0; max-width: 800px; margin: 0 auto; }
+.flow-step {
+  display: grid; grid-template-columns: 80px 1fr; gap: 28px; padding: 32px 0;
+  border-bottom: 1px solid var(--bd); align-items: flex-start;
+}
+.flow-step:last-child { border-bottom: none; }
+.step-num-wrap { position: relative; display: flex; justify-content: center; }
+.step-num {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  border: 1px solid var(--bd2); background: rgba(200,168,75,.06);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--g); letter-spacing: 1px;
+}
+.step-line {
+  position: absolute; top: 48px; left: 50%; width: 1px;
+  height: calc(100% + 32px);
+  background: linear-gradient(180deg, var(--bd2), transparent);
+  transform: translateX(-50%);
+}
+.flow-step:last-child .step-line { display: none; }
+.step-content {}
+.step-title {
+  font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--tx); margin-bottom: 8px;
+}
+.step-desc {
+  font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--muted);
+  line-height: 1.8; margin-bottom: 12px;
+}
+.step-agents { display: flex; gap: 6px; flex-wrap: wrap; }
+.step-agent-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(200,168,75,.05); border: 1px solid var(--bd);
+  border-radius: 3px; padding: 3px 8px;
+  font-family: 'DM Mono', monospace; font-size: .52rem; color: var(--g); letter-spacing: .5px;
+}
+
+/* ── TRANSFER DEMO ───────────────────────────────────────── */
+#demo { padding: 100px 0; }
+.demo-grid { display: grid; grid-template-columns: 1fr 440px; gap: 60px; align-items: center; }
+
+.demo-left {}
+.demo-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300;
+  line-height: 1.15; color: var(--tx); margin-bottom: 16px;
+}
+.demo-title em { font-style: italic; color: var(--g); }
+.demo-desc {
+  font-family: 'DM Mono', monospace; font-size: .7rem; color: var(--muted);
+  line-height: 1.8; margin-bottom: 32px;
+}
+.demo-points { display: flex; flex-direction: column; gap: 14px; }
+.demo-point { display: flex; align-items: flex-start; gap: 12px; }
+.demo-point-icon { color: var(--teal); font-size: .9rem; margin-top: 1px; }
+.demo-point-text { font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--muted); line-height: 1.6; }
+.demo-point-text strong { color: var(--tx); font-weight: 500; }
+
+/* Transfer UI card */
+.transfer-ui {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 16px; padding: 28px; position: relative; overflow: hidden;
+}
+.transfer-ui::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--g), var(--teal), transparent);
+}
+
+.tf-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+}
+.tf-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--tx); }
+.tf-badge {
+  font-family: 'DM Mono', monospace; font-size: .52rem; letter-spacing: 1.5px;
+  padding: 3px 8px; border: 1px solid rgba(0,229,200,.3);
+  border-radius: 2px; color: var(--teal); text-transform: uppercase;
+}
+
+.tf-field { margin-bottom: 14px; }
+.tf-label {
+  font-family: 'DM Mono', monospace; font-size: .52rem; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase; margin-bottom: 6px; display: block;
+}
+.tf-input {
+  width: 100%; background: rgba(0,0,0,.35); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 10px 14px; color: var(--tx);
+  font-family: 'DM Mono', monospace; font-size: .78rem; outline: none;
+  transition: border-color .2s;
+}
+.tf-input:focus { border-color: rgba(200,168,75,.4); }
+
+.tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.tf-rate-bar {
+  background: rgba(0,229,200,.05); border: 1px solid rgba(0,229,200,.15);
+  border-radius: 6px; padding: 10px 14px; margin-bottom: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tf-rate-label { font-family: 'DM Mono', monospace; font-size: .58rem; color: var(--muted); }
+.tf-rate-value { font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--teal); }
+
+/* AI agents status in transfer */
+.tf-agents-bar {
+  background: rgba(0,0,0,.3); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 10px 14px; margin-bottom: 16px;
+}
+.tf-agents-title {
+  font-family: 'DM Mono', monospace; font-size: .52rem; color: var(--muted);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
+}
+.tf-agents-row { display: flex; gap: 6px; }
+.tf-agent {
+  flex: 1; padding: 6px 4px; border-radius: 4px; text-align: center;
+  border: 1px solid var(--bd); background: rgba(200,168,75,.03);
+  font-family: 'DM Mono', monospace; font-size: .5rem; color: var(--muted);
+  transition: all .3s;
+}
+.tf-agent.ok { border-color: rgba(46,168,122,.35); color: var(--gr); background: rgba(46,168,122,.05); }
+.tf-agent.loading { border-color: var(--bd2); color: var(--g); background: rgba(200,168,75,.06); animation: agent-pulse .8s ease-in-out infinite; }
+@keyframes agent-pulse { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+
+.tf-submit {
+  width: 100%; padding: 13px; border: none; border-radius: 6px; cursor: pointer;
+  background: linear-gradient(135deg, #8a6a1c, #c8a84b, #e8cc88, #c8a84b, #8a6a1c);
+  background-size: 200% auto; animation: shimmer 3.5s linear infinite;
+  color: #06040a; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: .78rem; letter-spacing: .5px; box-shadow: 0 4px 24px rgba(200,168,75,.3);
+  transition: box-shadow .2s;
+}
+.tf-submit:hover { box-shadow: 0 8px 36px rgba(200,168,75,.55); }
+
+/* ── CURRENCIES ───────────────────────────────────────────── */
+#currencies { padding: 100px 0; }
+.currency-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; background: var(--bd); border: 1px solid var(--bd); }
+.currency-card {
+  background: var(--card); padding: 24px 16px; text-align: center;
+  transition: background .2s; cursor: default;
+}
+.currency-card:hover { background: var(--card2); }
+.currency-flag { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+.currency-code { font-family: 'DM Mono', monospace; font-size: .72rem; color: var(--g); letter-spacing: 1px; margin-bottom: 4px; }
+.currency-name { font-family: 'DM Mono', monospace; font-size: .52rem; color: var(--muted); }
+
+/* ── PARTNERS ─────────────────────────────────────────────── */
+#partners { padding: 80px 0; }
+.partners-row {
+  display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;
+}
+.partner-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: 1px;
+  color: var(--muted); padding: 10px 20px; border: 1px solid var(--bd);
+  border-radius: 4px; background: rgba(255,255,255,.02);
+  transition: all .2s; cursor: default;
+}
+.partner-item:hover { border-color: var(--gd); color: var(--g); }
+.partner-icon { font-size: 1rem; }
+
+/* ── COMPLIANCE ───────────────────────────────────────────── */
+#compliance { padding: 100px 0; }
+.compliance-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--bd); border: 1px solid var(--bd); }
+.compliance-card {
+  background: var(--card); padding: 32px 24px;
+  border-left: 3px solid transparent; transition: border-color .3s, background .2s;
+}
+.compliance-card:hover { background: var(--card2); border-left-color: var(--g); }
+.compliance-icon { font-size: 1.5rem; margin-bottom: 16px; }
+.compliance-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem; color: var(--tx); margin-bottom: 10px; }
+.compliance-desc { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--muted); line-height: 1.8; }
+.compliance-tag { display: inline-block; margin-top: 12px; padding: 3px 8px; background: rgba(200,168,75,.07); border: 1px solid var(--bd); border-radius: 2px; font-family: 'DM Mono', monospace; font-size: .5rem; color: var(--g); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── WAITLIST / CTA ───────────────────────────────────────── */
+#cta {
+  padding: 120px 0; text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,168,75,.05) 0%, transparent 70%);
+}
+.cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 300; color: var(--tx); margin-bottom: 16px; line-height: 1.1; }
+.cta-title em { font-style: italic; color: var(--g); }
+.cta-sub { font-family: 'DM Mono', monospace; font-size: .75rem; color: var(--muted); margin-bottom: 48px; line-height: 1.8; }
+
+.waitlist-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto 20px; }
+.waitlist-input {
+  flex: 1; padding: 14px 18px; background: rgba(0,0,0,.4);
+  border: 1px solid var(--bd); border-right: none;
+  border-radius: 4px 0 0 4px; color: var(--tx);
+  font-family: 'DM Mono', monospace; font-size: .75rem; outline: none;
+  transition: border-color .2s;
+}
+.waitlist-input:focus { border-color: rgba(200,168,75,.4); }
+.waitlist-input::placeholder { color: var(--dim); }
+.waitlist-btn {
+  padding: 14px 28px; border: none; border-radius: 0 4px 4px 0; cursor: pointer;
+  background: linear-gradient(135deg, #8a6a1c, #c8a84b, #e8cc88, #c8a84b, #8a6a1c);
+  background-size: 200% auto; animation: shimmer 4s linear infinite;
+  color: #06040a; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: .72rem; letter-spacing: .5px; white-space: nowrap;
+}
+.waitlist-note { font-family: 'DM Mono', monospace; font-size: .58rem; color: var(--muted); letter-spacing: .5px; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--bd); padding: 40px 0; position: relative; z-index: 1;
+  background: rgba(4,4,10,.8);
+}
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; letter-spacing: 5px; background: linear-gradient(135deg, var(--gd), var(--g2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: 1.5px; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color .2s; }
+.footer-links a:hover { color: var(--g); }
+.footer-legal { font-family: 'DM Mono', monospace; font-size: .55rem; color: var(--dim); text-align: right; max-width: 320px; line-height: 1.7; }
+
+/* ── MODAL ────────────────────────────────────────────────── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--card); border: 1px solid var(--bd2); border-radius: 14px; padding: 36px 32px; width: 100%; max-width: 380px; position: relative; }
+.modal-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--g),transparent); }
+.modal-title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; color:var(--g); margin-bottom:20px; }
+.m-inp { width:100%; background:rgba(0,0,0,.4); border:1px solid var(--bd); border-radius:5px; color:var(--tx); font-family:'DM Mono',monospace; font-size:.8rem; padding:11px 14px; outline:none; margin-bottom:10px; transition:border-color .2s; }
+.m-inp:focus { border-color:rgba(200,168,75,.45); }
+.m-inp::placeholder { color:var(--dim); }
+.m-submit { width:100%; padding:12px; border:none; border-radius:5px; cursor:pointer; background:linear-gradient(135deg,#8a6a1c,#c8a84b,#e8cc88,#c8a84b,#8a6a1c); background-size:200% auto; animation:shimmer 4s linear infinite; color:#06040a; font-family:'Syne',sans-serif; font-weight:800; font-size:.8rem; margin-top:4px; }
+.m-close { position:absolute; top:14px; right:16px; background:none; border:none; color:var(--muted); font-size:1rem; cursor:pointer; }
+.m-close:hover { color:var(--g); }
+.m-switch { text-align:center; margin-top:14px; font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted); }
+.m-switch a { color:var(--g); cursor:pointer; text-decoration:underline; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 50px; }
+  .hero-card-wrap { display: none; }
+  .agents-grid { grid-template-columns: repeat(2,1fr); }
+  .demo-grid { grid-template-columns: 1fr; }
+  .currency-grid { grid-template-columns: repeat(4,1fr); }
+  .compliance-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-legal { text-align: left; max-width: 100%; }
+}
+@media (max-width: 560px) {
+  .agents-grid { grid-template-columns: 1fr 1fr; }
+  .currency-grid { grid-template-columns: repeat(3,1fr); }
+  .hero-stats { flex-direction: column; gap: 20px; }
+  .shell { padding: 0 18px; }
+}
+
+/* ── SCROLL REVEAL ────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── MOBILE NAV ───────────────────────────────────────────── */
+.menu-btn { display: none; background: none; border: 1px solid var(--bd); border-radius: 3px; padding: 7px 10px; cursor: pointer; color: var(--muted); font-size: .8rem; }
+@media (max-width: 900px) { .menu-btn { display: flex; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">AIXENZ</a>
+    <div class="nav-links">
+      <a href="#about">Agentes IA</a>
+      <a href="#flow">Como Funciona</a>
+      <a href="#demo">Transferências</a>
+      <a href="#compliance">Compliance</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn-outline" onclick="openModal('login')">Entrar</button>
+      <button class="btn-gold" onclick="openModal('register')">Abrir Conta</button>
+    </div>
+    <button class="menu-btn" onclick="openModal('register')">☰</button>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap" style="margin-top:64px;">
+  <div class="ticker-track" id="ticker">
+    <div class="ti"><span class="ti-sym">BTC/USD</span><span class="ti-px" id="btc-px">—</span><span class="ti-up" id="btc-chg">—</span></div>
+    <div class="ti"><span class="ti-sym">ETH/USD</span><span class="ti-px" id="eth-px">—</span></div>
+    <div class="ti"><span class="ti-sym">USD/BRL</span><span class="ti-px" id="usd-brl">—</span></div>
+    <div class="ti"><span class="ti-sym">EUR/BRL</span><span class="ti-px" id="eur-brl">—</span></div>
+    <div class="ti"><span class="ti-sym">SELIC</span><span class="ti-px">14,75% a.a.</span></div>
+    <div class="ti"><span class="ti-sym">SOL/USD</span><span class="ti-px" id="sol-px">—</span></div>
+    <div class="ti"><span class="ti-sym">IBOVESPA</span><span class="ti-px" id="ibov">—</span></div>
+    <div class="ti"><span class="ti-sym">PIX</span><span class="ti-px" style="color:var(--teal)">DISPONÍVEL 24/7</span></div>
+    <!-- duplicata para loop infinito -->
+    <div class="ti"><span class="ti-sym">BTC/USD</span><span class="ti-px" id="btc-px2">—</span></div>
+    <div class="ti"><span class="ti-sym">ETH/USD</span><span class="ti-px" id="eth-px2">—</span></div>
+    <div class="ti"><span class="ti-sym">USD/BRL</span><span class="ti-px" id="usd-brl2">—</span></div>
+    <div class="ti"><span class="ti-sym">EUR/BRL</span><span class="ti-px" id="eur-brl2">—</span></div>
+    <div class="ti"><span class="ti-sym">SELIC</span><span class="ti-px">14,75% a.a.</span></div>
+    <div class="ti"><span class="ti-sym">SOL/USD</span><span class="ti-px" id="sol-px2">—</span></div>
+    <div class="ti"><span class="ti-sym">IBOVESPA</span><span class="ti-px" id="ibov2">—</span></div>
+    <div class="ti"><span class="ti-sym">PIX</span><span class="ti-px" style="color:var(--teal)">DISPONÍVEL 24/7</span></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="shell">
+    <div class="hero-inner">
+
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          16 Agentes IA · Presença Global · Compliance Local
+        </div>
+        <h1 class="hero-title">
+          O banco que<br>
+          <em>pensa</em> por você<br>
+          <strong>em qualquer moeda</strong>
+        </h1>
+        <p class="hero-sub">
+          AIXENZ orquestra transferências globais via 16 especialistas de IA —
+          Compliance, Câmbio, Segurança e mais — tomando decisões em tempo real
+          para que seu dinheiro chegue a qualquer lugar do mundo em segundos.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="openModal('register')">Abrir Conta Gratuita</button>
+          <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Ver Demonstração</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">16</div>
+            <div class="stat-label">Agentes IA</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">&lt;30s</div>
+            <div class="stat-label">Transferência Global</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">150+</div>
+            <div class="stat-label">Moedas Suportadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">PIX & Internacional</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card mockup -->
+      <div class="hero-card-wrap">
+        <div class="banking-card">
+          <div class="card-chip"></div>
+          <div class="card-logo">AIXENZ</div>
+          <div class="card-number">•••• •••• •••• 7291</div>
+          <div class="card-bottom">
+            <div>
+              <div class="card-name">CLEI PIRESCI</div>
+            </div>
+            <div style="text-align:right">
+              <div class="card-balance-label">Saldo Disponível</div>
+              <div class="card-balance-value">R$ 48.320,00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-txs">
+          <div class="mini-tx">
+            <div class="tx-left">
+              <div class="tx-icon pix">⚡</div>
+              <div>
+                <div class="tx-name">PIX Enviado</div>
+                <div class="tx-meta">João Silva · há 2min</div>
+              </div>
+            </div>
+            <div class="tx-amt neg">−R$ 1.200,00</div>
+          </div>
+          <div class="mini-tx">
+            <div class="tx-left">
+              <div class="tx-icon globe">🌐</div>
+              <div>
+                <div class="tx-name">Wise → Londres</div>
+                <div class="tx-meta">£ 850.00 · EXECUTADO</div>
+              </div>
+            </div>
+            <div class="tx-amt neg">−R$ 5.440,00</div>
+          </div>
+          <div class="mini-tx">
+            <div class="tx-left">
+              <div class="tx-icon ai">🤖</div>
+              <div>
+                <div class="tx-name">Rendimento IA</div>
+                <div class="tx-meta">Tesouro Selic · 14,75%</div>
+              </div>
+            </div>
+            <div class="tx-amt pos">+R$ 320,40</div>
+          </div>
+        </div>
+
+        <div class="agent-bar">
+          <div class="agent-bar-label">16 Agentes Monitorando</div>
+          <div class="agent-dots">
+            <div class="agent-dot active">🛡</div>
+            <div class="agent-dot active">📊</div>
+            <div class="agent-dot active">⚡</div>
+            <div class="agent-dot">🌐</div>
+            <div class="agent-dot">📈</div>
+            <div class="agent-dot active">🔍</div>
+            <div class="agent-dot">💰</div>
+            <div class="agent-dot">🤖</div>
+            <div class="agent-dot active">⚖️</div>
+            <div class="agent-dot">🎯</div>
+            <div class="agent-dot">💧</div>
+            <div class="agent-dot active">🌱</div>
+            <div class="agent-dot">⚙️</div>
+            <div class="agent-dot">🔗</div>
+            <div class="agent-dot active">🏛</div>
+            <div class="agent-dot">📋</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 16 AGENTS -->
+<section id="about">
+  <div class="shell">
+    <div class="section-header reveal">
+      <span class="section-label">O Cérebro AIXENZ</span>
+      <h2 class="section-title">16 Especialistas de <em>Inteligência Artificial</em></h2>
+      <p class="section-desc">Cada agente domina uma especialidade bancária. O Orchestrator #16 coordena todos em tempo real para cada decisão financeira.</p>
+    </div>
+    <div class="agents-grid reveal">
+      <div class="agent-card"><div class="agent-num">01</div><div class="agent-icon">⚡</div><div class="agent-name">Risk Analyst</div><div class="agent-desc">Scoring de risco de crédito e mercado em tempo real com modelos preditivos.</div></div>
+      <div class="agent-card"><div class="agent-num">02</div><div class="agent-icon">🔎</div><div class="agent-name">Fraud Detective</div><div class="agent-desc">Detecta anomalias comportamentais e padrões suspeitos em milissegundos.</div></div>
+      <div class="agent-card"><div class="agent-num">03</div><div class="agent-icon">📊</div><div class="agent-name">Portfolio Manager</div><div class="agent-desc">Otimiza alocação de ativos com rebalanceamento automático por perfil.</div></div>
+      <div class="agent-card"><div class="agent-num">04</div><div class="agent-icon">📋</div><div class="agent-name">Tax Optimizer</div><div class="agent-desc">Planejamento fiscal inteligente. Gera DARF e minimiza carga tributária.</div></div>
+      <div class="agent-card"><div class="agent-num">05</div><div class="agent-icon">🌐</div><div class="agent-name">Market Forecaster</div><div class="agent-desc">Projeta tendências de câmbio e decide o melhor momento para executar FX.</div></div>
+      <div class="agent-card"><div class="agent-num">06</div><div class="agent-icon">🏦</div><div class="agent-name">Credit Underwriter</div><div class="agent-desc">Aprova crédito em segundos com dados alternativos e scoring multidimensional.</div></div>
+      <div class="agent-card"><div class="agent-num">07</div><div class="agent-icon">⚖️</div><div class="agent-name">Compliance Guardian</div><div class="agent-desc">Monitora BACEN, LGPD, OFAC e FATF em tempo real antes de cada transação.</div></div>
+      <div class="agent-card"><div class="agent-num">08</div><div class="agent-icon">💡</div><div class="agent-name">Customer Insight</div><div class="agent-desc">Mapeia jornada financeira, prevê churn e personaliza ofertas por perfil.</div></div>
+      <div class="agent-card"><div class="agent-num">09</div><div class="agent-icon">💧</div><div class="agent-name">Liquidity Controller</div><div class="agent-desc">Gerencia fluxo de caixa e previne descoberto com antecedência de 30 dias.</div></div>
+      <div class="agent-card"><div class="agent-num">10</div><div class="agent-icon">🌱</div><div class="agent-name">ESG Evaluator</div><div class="agent-desc">Pontua portfólios por critérios ambientais, sociais e de governança.</div></div>
+      <div class="agent-card"><div class="agent-num">11</div><div class="agent-icon">📈</div><div class="agent-name">Macro Economist</div><div class="agent-desc">Simula cenários de stress macroeconômico e impacto no portfólio total.</div></div>
+      <div class="agent-card"><div class="agent-num">12</div><div class="agent-icon">⚙️</div><div class="agent-name">Trading Algorithm</div><div class="agent-desc">Executa estratégias quantitativas com gestão de risco integrada.</div></div>
+      <div class="agent-card"><div class="agent-num">13</div><div class="agent-icon">🎯</div><div class="agent-name">Financial Advisor</div><div class="agent-desc">Consultoria personalizada em linguagem natural baseada em dados reais.</div></div>
+      <div class="agent-card"><div class="agent-num">14</div><div class="agent-icon">🛡️</div><div class="agent-name">Security Sentinel</div><div class="agent-desc">Protege a conta com detecção de intrusão e fraud score em tempo real.</div></div>
+      <div class="agent-card"><div class="agent-num">15</div><div class="agent-icon">🔗</div><div class="agent-name">Open Finance AI</div><div class="agent-desc">Consolida dados de múltiplas instituições via Open Finance BR.</div></div>
+      <div class="agent-card" style="background:linear-gradient(145deg,#0e1530,#090c1e);border-left:3px solid var(--g)"><div class="agent-num" style="color:var(--g)">16</div><div class="agent-icon">🏛️</div><div class="agent-name" style="color:var(--g2)">Orchestrator AI</div><div class="agent-desc">Coordena os 15 especialistas, resolve conflitos e emite a decisão final integrada.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="flow">
+  <div class="shell-sm">
+    <div class="section-header reveal">
+      <span class="section-label">Fluxo de Execução</span>
+      <h2 class="section-title">Do clique à confirmação <em>em menos de 30 segundos</em></h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">01</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Você inicia a transferência</div>
+          <div class="step-desc">Informe valor, moeda de destino e beneficiário. O AIXENZ detecta automaticamente o melhor corredor: Bankly para PIX doméstico, Wise para Europa, CurrencyCloud para mercados emergentes.</div>
+          <div class="step-agents">
+            <span class="step-agent-tag">Smart Router</span>
+            <span class="step-agent-tag">JWT Auth</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">02</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Cotação FX paralela em &lt;800ms</div>
+          <div class="step-desc">O Smart Router busca cotações simultaneamente em múltiplos parceiros BaaS e seleciona automaticamente a menor custo total — spread + taxa — para o corredor específico.</div>
+          <div class="step-agents">
+            <span class="step-agent-tag">🌐 Market Forecaster #05</span>
+            <span class="step-agent-tag">Wise API</span>
+            <span class="step-agent-tag">CurrencyCloud</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">03</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Orchestrator AI ativa 3 especialistas em paralelo</div>
+          <div class="step-desc">Compliance Guardian verifica BACEN/OFAC/PLD. Security Sentinel calcula fraud score. Market Forecaster decide o timing ideal. O Orchestrator #16 integra todas as decisões e emite o veredito final.</div>
+          <div class="step-agents">
+            <span class="step-agent-tag">⚖️ Compliance #07</span>
+            <span class="step-agent-tag">🛡️ Security #14</span>
+            <span class="step-agent-tag">🌐 Forecaster #05</span>
+            <span class="step-agent-tag">🏛️ Orchestrator #16</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">04</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Execução via parceiro BaaS + Ledger Double-Entry</div>
+          <div class="step-desc">Se APROVADO: hold nos fundos → execução via API do parceiro com mTLS → commit ACID no ledger double-entry PostgreSQL. Débito na conta do usuário, crédito na conta de trânsito do parceiro.</div>
+          <div class="step-agents">
+            <span class="step-agent-tag">Bankly / Wise</span>
+            <span class="step-agent-tag">mTLS + HMAC</span>
+            <span class="step-agent-tag">Ledger ACID</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">05</div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Confirmação por webhook + XAI audit log</div>
+          <div class="step-desc">O parceiro envia webhook de confirmação. O AIXENZ verifica a assinatura HMAC, atualiza o status da transferência e persiste o audit log completo de decisões dos agentes para conformidade com o Bacen.</div>
+          <div class="step-agents">
+            <span class="step-agent-tag">Webhook HMAC-SHA256</span>
+            <span class="step-agent-tag">XAI Audit Log</span>
+            <span class="step-agent-tag">Push Notification</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFER DEMO -->
+<section id="demo">
+  <div class="shell">
+    <div class="demo-grid">
+      <div class="demo-left reveal">
+        <div class="section-label">Transferência Global</div>
+        <h2 class="demo-title">Envie para qualquer lugar.<br><em>Inteligência decide como.</em></h2>
+        <p class="demo-desc">Não escolha parceiro, não calcule câmbio, não se preocupe com compliance. O AIXENZ faz tudo automaticamente enquanto 3 agentes validam sua transação em paralelo.</p>
+        <div class="demo-points">
+          <div class="demo-point">
+            <span class="demo-point-icon">◈</span>
+            <div class="demo-point-text"><strong>PIX instantâneo</strong> para qualquer banco brasileiro 24h por dia, 7 dias por semana, zero taxa interna.</div>
+          </div>
+          <div class="demo-point">
+            <span class="demo-point-icon">◈</span>
+            <div class="demo-point-text"><strong>Remessa internacional</strong> com câmbio automático via Wise ou CurrencyCloud — melhor rate do mercado.</div>
+          </div>
+          <div class="demo-point">
+            <span class="demo-point-icon">◈</span>
+            <div class="demo-point-text"><strong>Proteção real</strong>: Compliance Guardian bloqueia destinos OFAC, Security Sentinel detecta fraudes antes de executar.</div>
+          </div>
+          <div class="demo-point">
+            <span class="demo-point-icon">◈</span>
+            <div class="demo-point-text"><strong>Rastreabilidade total</strong>: cada decisão dos agentes é gravada no audit log para conformidade regulatória.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transfer UI -->
+      <div class="transfer-ui reveal">
+        <div class="tf-header">
+          <div class="tf-title">Nova Transferência</div>
+          <div class="tf-badge">🔴 Ao Vivo</div>
+        </div>
+
+        <div class="tf-field">
+          <label class="tf-label">Valor</label>
+          <input class="tf-input" type="text" placeholder="R$ 0,00" value="R$ 5.440,00" id="tf-amount">
+        </div>
+
+        <div class="tf-row">
+          <div class="tf-field">
+            <label class="tf-label">De</label>
+            <select class="tf-input" style="cursor:pointer">
+              <option>🇧🇷 BRL</option>
+              <option>🇺🇸 USD</option>
+            </select>
+          </div>
+          <div class="tf-field">
+            <label class="tf-label">Para</label>
+            <select class="tf-input" id="tf-currency" style="cursor:pointer" onchange="updateRate()">
+              <option value="GBP">🇬🇧 GBP</option>
+              <option value="EUR">🇪🇺 EUR</option>
+              <option value="USD">🇺🇸 USD</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tf-field">
+          <label class="tf-label">Beneficiário</label>
+          <input class="tf-input" type="text" placeholder="Nome completo" value="John Smith">
+        </div>
+
+        <div class="tf-field">
+          <label class="tf-label">IBAN / Conta</label>
+          <input class="tf-input" type="text" placeholder="GB29 NWBK..." value="GB29 NWBK 6016 1331 9268 19">
+        </div>
+
+        <div class="tf-rate-bar">
+          <div class="tf-rate-label">Taxa de câmbio (Smart Router)</div>
+          <div class="tf-rate-value" id="tf-rate">1 BRL = 0.1563 GBP · via Wise</div>
+        </div>
+
+        <div class="tf-agents-bar">
+          <div class="tf-agents-title">Validação por Agentes IA</div>
+          <div class="tf-agents-row">
+            <div class="tf-agent ok" id="tf-c">⚖️ Compliance</div>
+            <div class="tf-agent ok" id="tf-s">🛡️ Security</div>
+            <div class="tf-agent ok" id="tf-f">🌐 FX Timing</div>
+            <div class="tf-agent ok" id="tf-o">🏛️ Orchestrator</div>
+          </div>
+        </div>
+
+        <button class="tf-submit" onclick="simulateTransfer()">
+          ✦ EXECUTAR TRANSFERÊNCIA
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENCIES -->
+<section id="currencies">
+  <div class="shell">
+    <div class="section-header reveal">
+      <span class="section-label">Multi-Moeda</span>
+      <h2 class="section-title">Um banco. <em>Todas as moedas.</em></h2>
+      <p class="section-desc">Conta unificada em BRL com conversão automática para qualquer moeda global via parceiros BaaS certificados.</p>
+    </div>
+    <div class="currency-grid reveal">
+      <div class="currency-card"><span class="currency-flag">🇧🇷</span><div class="currency-code">BRL</div><div class="currency-name">Real Brasileiro</div></div>
+      <div class="currency-card"><span class="currency-flag">🇺🇸</span><div class="currency-code">USD</div><div class="currency-name">Dólar Americano</div></div>
+      <div class="currency-card"><span class="currency-flag">🇪🇺</span><div class="currency-code">EUR</div><div class="currency-name">Euro</div></div>
+      <div class="currency-card"><span class="currency-flag">🇬🇧</span><div class="currency-code">GBP</div><div class="currency-name">Libra Esterlina</div></div>
+      <div class="currency-card"><span class="currency-flag">₿</span><div class="currency-code">BTC</div><div class="currency-name">Bitcoin</div></div>
+      <div class="currency-card"><span class="currency-flag">Ξ</span><div class="currency-code">ETH</div><div class="currency-name">Ethereum</div></div>
+      <div class="currency-card"><span class="currency-flag">💵</span><div class="currency-code">USDT</div><div class="currency-name">Tether</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" style="padding:60px 0;">
+  <div class="shell">
+    <div class="section-header reveal" style="margin-bottom:36px;">
+      <span class="section-label">Infraestrutura BaaS</span>
+      <h2 class="section-title" style="font-size:1.8rem;">Parceiros <em>licenciados</em> por trás do AIXENZ</h2>
+    </div>
+    <div class="partners-row reveal">
+      <div class="partner-item"><span class="partner-icon">🏦</span>BANKLY · Core Banking BR</div>
+      <div class="partner-item"><span class="partner-icon">🌐</span>WISE · Cross-Border FX</div>
+      <div class="partner-item"><span class="partner-icon">💱</span>CURRENCYCLOUD · FX Liquidity</div>
+      <div class="partner-item"><span class="partner-icon">💳</span>DOCK · Cards & Accounts</div>
+      <div class="partner-item"><span class="partner-icon">⚡</span>STRIPE TREASURY · US/EU</div>
+      <div class="partner-item"><span class="partner-icon">🔗</span>RIPPLE ODL · On-Demand Liquidity</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section id="compliance">
+  <div class="shell">
+    <div class="section-header reveal">
+      <span class="section-label">Regulação & Segurança</span>
+      <h2 class="section-title"><em>Global Presence,</em><br>Local Compliance</h2>
+      <p class="section-desc">Zero Trust Architecture. Toda decisão é auditada. Toda chamada é assinada.</p>
+    </div>
+    <div class="compliance-grid reveal">
+      <div class="compliance-card">
+        <div class="compliance-icon">⚖️</div>
+        <div class="compliance-title">BACEN & Regulação Brasileira</div>
+        <div class="compliance-desc">Compliance Guardian monitora Resolução 3.859 (remessas), limites diários por CPF, purpose codes obrigatórios e PLD em tempo real antes de cada execução.</div>
+        <span class="compliance-tag">Resolução 3.859 · PLD</span>
+      </div>
+      <div class="compliance-card">
+        <div class="compliance-icon">🛡️</div>
+        <div class="compliance-title">OFAC, FATF & Sanções Globais</div>
+        <div class="compliance-desc">Hard rules que o LLM não pode overridar: países da lista OFAC SDN são bloqueados automaticamente. FATF blacklist detectada antes da cotação FX.</div>
+        <span class="compliance-tag">OFAC SDN · FATF</span>
+      </div>
+      <div class="compliance-card">
+        <div class="compliance-icon">🔐</div>
+        <div class="compliance-title">Zero Trust Architecture</div>
+        <div class="compliance-desc">mTLS em toda chamada BaaS. HMAC-SHA256/512 em todos os webhooks. JWT com rotação. Advisory locks PostgreSQL por user_id. Nenhum endpoint sem autenticação.</div>
+        <span class="compliance-tag">mTLS · HMAC · JWT</span>
+      </div>
+      <div class="compliance-card">
+        <div class="compliance-icon">📋</div>
+        <div class="compliance-title">LGPD & Proteção de Dados</div>
+        <div class="compliance-desc">Dados pessoais criptografados em repouso (AES-256). Logs de acesso auditados. Direito de portabilidade e exclusão implementados via API. Consentimento explícito por operação sensível.</div>
+        <span class="compliance-tag">LGPD · AES-256</span>
+      </div>
+      <div class="compliance-card">
+        <div class="compliance-icon">🤖</div>
+        <div class="compliance-title">XAI — Explicabilidade para o Bacen</div>
+        <div class="compliance-desc">Cada decisão de agente IA é gravada no compliance_audit com: agent_id, decision, confidence, reasoning e raw_payload. Auditável por reguladores em qualquer instante.</div>
+        <span class="compliance-tag">XAI Audit Log</span>
+      </div>
+      <div class="compliance-card">
+        <div class="compliance-icon">🔑</div>
+        <div class="compliance-title">Open Finance BR</div>
+        <div class="compliance-desc">Open Finance AI (#15) consolida dados de múltiplas instituições com consentimento ativo. APIs certificadas pelo Bacen. Tokens OAuth 2.0 com escopo mínimo necessário.</div>
+        <span class="compliance-tag">Open Finance · OAuth 2.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="shell-sm">
+    <h2 class="cta-title reveal">O banco do futuro<br>está <em>aberto agora.</em></h2>
+    <p class="cta-sub reveal">Junte-se à lista de acesso antecipado. Sem cartão de crédito. Sem compromisso.</p>
+    <div class="reveal">
+      <div class="waitlist-form">
+        <input class="waitlist-input" type="email" placeholder="seu@email.com" id="waitlist-email">
+        <button class="waitlist-btn" onclick="joinWaitlist()">ENTRAR NA LISTA</button>
+      </div>
+      <p class="waitlist-note" id="waitlist-msg">Primeiros 1.000 correntistas recebem taxa zero por 12 meses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="shell">
+    <div class="footer-inner">
+      <div class="footer-logo">AIXENZ</div>
+      <div class="footer-links">
+        <a href="#about">Agentes</a>
+        <a href="#flow">Fluxo</a>
+        <a href="#compliance">Compliance</a>
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+      <div class="footer-legal">
+        AIXENZ não é uma instituição financeira. Operações realizadas via parceiros licenciados pelo BACEN.
+        © 2026 AIXENZ · Todos os direitos reservados.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="modal-login" onclick="if(event.target===this)closeModal('login')">
+  <div class="modal-box">
+    <button class="m-close" onclick="closeModal('login')">✕</button>
+    <div class="modal-title">Acessar AIXENZ</div>
+    <input class="m-inp" type="email" placeholder="seu@email.com"
+      onkeydown="if(event.key==='Enter')this.nextElementSibling.focus()">
+    <input class="m-inp" type="password" placeholder="Senha"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="m-submit" onclick="doLogin()">ENTRAR</button>
+    <div class="m-switch">Não tem conta? <a onclick="switchModal('login','register')">Abrir conta gratuita</a></div>
+  </div>
+</div>
+
+<!-- MODAL REGISTER -->
+<div class="modal-overlay" id="modal-register" onclick="if(event.target===this)closeModal('register')">
+  <div class="modal-box">
+    <button class="m-close" onclick="closeModal('register')">✕</button>
+    <div class="modal-title">Criar Conta AIXENZ</div>
+    <input class="m-inp" type="email" id="reg-email" placeholder="seu@email.com"
+      onkeydown="if(event.key==='Enter')document.getElementById('reg-pass').focus()">
+    <input class="m-inp" type="password" id="reg-pass" placeholder="Senha (mín. 8 caracteres)"
+      onkeydown="if(event.key==='Enter')doRegister()">
+    <button class="m-submit" onclick="doRegister()" id="reg-btn">CRIAR MINHA CONTA</button>
+    <div class="m-switch">Já tem conta? <a onclick="switchModal('register','login')">Entrar</a></div>
+  </div>
+</div>
+
+<script>
+var BACKEND = "https://api.aixenz.com"; // URL do Render
+
+/* ── MODAL ─────────────────────────────────────────────────── */
+function openModal(n) {
+  document.getElementById("modal-"+n).classList.add("open");
+  var f = document.querySelector("#modal-"+n+" .m-inp");
+  if(f) setTimeout(function(){ f.focus(); }, 80);
+}
+function closeModal(n) { document.getElementById("modal-"+n).classList.remove("open"); }
+function switchModal(f,t) { closeModal(f); openModal(t); }
+
+function doLogin() {
+  alert("Backend AIXENZ ainda em configuração. Junte-se à lista de espera!");
+  closeModal("login");
+}
+function doRegister() {
+  var email = (document.getElementById("reg-email")||{}).value || "";
+  var pass  = (document.getElementById("reg-pass")||{}).value  || "";
+  if(!email || pass.length < 8) {
+    alert("Preencha email e senha (mín. 8 caracteres).");
+    return;
+  }
+  var btn = document.getElementById("reg-btn");
+  if(btn) { btn.textContent = "Criando conta..."; btn.disabled = true; }
+  setTimeout(function(){
+    closeModal("register");
+    alert("✓ Conta na lista de espera! Você será notificado no lançamento.");
+    if(btn) { btn.textContent = "CRIAR MINHA CONTA"; btn.disabled = false; }
+  }, 1500);
+}
+
+/* ── WAITLIST ──────────────────────────────────────────────── */
+function joinWaitlist() {
+  var email = (document.getElementById("waitlist-email")||{}).value || "";
+  if(!email || !email.includes("@")) { alert("Informe um e-mail válido."); return; }
+  var msg = document.getElementById("waitlist-msg");
+  if(msg) msg.textContent = "✓ " + email + " adicionado à lista! Você será notificado.";
+  var input = document.getElementById("waitlist-email");
+  if(input) { input.value = ""; input.disabled = true; }
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────────────────── */
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if(e.isIntersecting) { e.target.classList.add("visible"); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(function(el) { observer.observe(el); });
+
+/* ── TRANSFER SIMULATION ───────────────────────────────────── */
+var _rates = { GBP: 0.1563, EUR: 0.1838, USD: 0.2012 };
+
+function updateRate() {
+  var sel = document.getElementById("tf-currency");
+  var rateEl = document.getElementById("tf-rate");
+  if(!sel || !rateEl) return;
+  var cur = sel.value;
+  var rate = _rates[cur] || 0.18;
+  var partners = { GBP:"Wise", EUR:"Wise", USD:"CurrencyCloud" };
+  rateEl.textContent = "1 BRL = " + rate.toFixed(4) + " " + cur + " · via " + (partners[cur]||"Wise");
+}
+
+function simulateTransfer() {
+  var agents = ["tf-c","tf-s","tf-f","tf-o"];
+  var labels = ["tf-c","tf-s","tf-f","tf-o"];
+
+  // Reset all to loading
+  agents.forEach(function(id) {
+    var el = document.getElementById(id);
+    if(el) { el.className = "tf-agent loading"; }
+  });
+
+  // Approve one by one
+  var icons = ["⚖️ Compliance","🛡️ Security","🌐 FX Timing","🏛️ Orchestrator"];
+  agents.forEach(function(id, i) {
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if(el) {
+        el.className = "tf-agent ok";
+        el.textContent = "✓ " + icons[i].split(" ")[1];
+      }
+      if(i === agents.length - 1) {
+        setTimeout(function(){
+          alert("✓ Transferência aprovada pelos 4 agentes IA!\n\nCompliance ✓ | Security ✓ | FX Timing ✓ | Orchestrator ✓\n\nNo app real, a execução seria iniciada via Wise/Bankly agora.");
+          agents.forEach(function(aid, j){
+            var el2 = document.getElementById(aid);
+            if(el2) { el2.className="tf-agent ok"; el2.textContent = icons[j]; }
+          });
+        }, 400);
+      }
+    }, (i + 1) * 600);
+  });
+}
+
+/* ── TICKER — dados reais via Binance/BCB ──────────────────── */
+async function loadTicker() {
+  try {
+    // Cripto via Binance
+    var syms = '["BTCUSDT","ETHUSDT","SOLUSDT"]';
+    var r = await fetch("https://api.binance.com/api/v3/ticker/24hr?symbols="+encodeURIComponent(syms), {signal: AbortSignal.timeout(5000)});
+    if(r.ok) {
+      var data = await r.json();
+      data.forEach(function(d){
+        var price = parseFloat(d.lastPrice);
+        var chg   = parseFloat(d.priceChangePercent);
+        var arrow = chg >= 0 ? "▲" : "▼";
+        var cls   = chg >= 0 ? "ti-up" : "ti-dn";
+        var pf    = price >= 100
+          ? "US$" + price.toLocaleString("en-US",{maximumFractionDigits:0})
+          : "US$" + price.toFixed(2);
+        var chgStr = arrow + Math.abs(chg).toFixed(2) + "%";
+
+        if(d.symbol === "BTCUSDT") {
+          setTicker("btc-px","btc-px2",pf);
+          var c1=document.getElementById("btc-chg");
+          if(c1){c1.className=cls;c1.textContent=chgStr;}
+        }
+        if(d.symbol === "ETHUSDT") { setTicker("eth-px","eth-px2",pf); }
+        if(d.symbol === "SOLUSDT") { setTicker("sol-px","sol-px2","US$"+price.toFixed(2)); }
+      });
+    }
+  } catch(e) {}
+
+  // USD/BRL via AwesomeAPI
+  try {
+    var r2 = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL", {signal:AbortSignal.timeout(5000)});
+    if(r2.ok) {
+      var fx = await r2.json();
+      if(fx.USDBRL) {
+        var usd = parseFloat(fx.USDBRL.bid).toFixed(4);
+        setTicker("usd-brl","usd-brl2","R$ "+usd);
+        _rates.USD = 1/parseFloat(fx.USDBRL.bid);
+      }
+      if(fx.EURBRL) {
+        var eur = parseFloat(fx.EURBRL.bid).toFixed(4);
+        setTicker("eur-brl","eur-brl2","R$ "+eur);
+        _rates.EUR = 1/parseFloat(fx.EURBRL.bid);
+        _rates.GBP = _rates.EUR * 0.85;
+      }
+      updateRate();
+    }
+  } catch(e) {}
+}
+
+function setTicker(id1, id2, val) {
+  [id1,id2].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.textContent = val;
+  });
+}
+
+loadTicker();
+setInterval(loadTicker, 30000);
+
+/* ── KEYBOARD ESC ──────────────────────────────────────────── */
+document.addEventListener("keydown", function(e) {
+  if(e.key === "Escape") {
+    ["login","register"].forEach(function(n){ closeModal(n); });
+  }
+});
+</script>
+</body>
+</html>
